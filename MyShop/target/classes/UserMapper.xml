@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserMapper">
+
+	<select id="getUserbyId" parameterType="String" resultType="String">
+		SELECT id FROM user where id = #{id}
+	</select>
+
+	<insert id="insertUser">
+		insert into user(id, pw, name, email, phone, address) values (#{id}, #{pw}, #{name}, #{email}, #{phone}, #{address});
+	</insert>
+
+	<select id="getUserInfo" parameterType="String" resultType="com.choi.model.User">
+		select * from user where id = #{id}
+	</select>
+
+	<update id="updateUserInfo">
+		update user set pw = #{pw}, name = #{name}, email = #{email}, phone = #{phone}, address = #{address} where id = #{id};
+	</update>
+
+	<delete id="deleteUserInfo">
+		delete from user where id = #{id};
+	</delete>
+	
+	<select id="listUser" parameterType="String" resultType="com.choi.model.User">
+		select 
+			id as userId,
+			pw as userPw,
+			name as userName,
+			email as userEmail,
+			phone as userPhone,
+			address as userAddress
+		 from user;
+	</select>
+
+	<select id="getProductInfo" parameterType="String" resultType="com.choi.model.Product">
+		select * from product where url = #{url};
+	</select>
+
+	<select id="setUserInfo" parameterType="String" resultType="com.choi.model.Cart">
+		select * from cart where id = #{id}
+	</select>
+	
+	<select id="countCart" resultType="int">
+		select count(*) from cart where id=#{id} and p_id=#{p_id}
+	</select>
+
+	<update id="updateCart">
+		update cart set qnt=qnt+#{qnt}
+		where id=#{id} and p_id=#{p_id}
+	</update>
+	
+	<insert id="insertCart">
+		insert into cart(id, p_id, qnt)
+		values(#{id},#{p_id},#{qnt})
+	</insert>
+	
+	<select id="listCart" parameterType="int" resultType="com.choi.model.Cart">
+		select * from cart; 
+	</select>
+
+</mapper>
